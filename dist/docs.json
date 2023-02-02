@@ -1,0 +1,407 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Meros Shop",
+        "version": "1.0.11"
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "Everything about your Books"
+        },
+        {
+            "name": "Category",
+            "description": "Everything about your Category"
+        }
+    ],
+    "paths": {
+        "/user/page": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Page",
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3hj12bk3j1kb4gv3hb12"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/user/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRegister"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserRegisterRes"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User already exists"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "array",
+                            "schema": {
+                                "$ref": "#/components/schemas/UserLogin"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserLoginRes"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/user/update": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update User",
+                "parameters": [
+                    {
+                        "name": "access_token",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "3hj12bk3j1kb4gv3hb12"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRegister"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "User updated successfully"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/category/create": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Category create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "object",
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCategory"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Category created successfully",
+                                        "status": 201
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Category already exists"
+                    }
+                }
+            }
+        },
+        "/subcategory/create": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "SubCategory create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/CreateSubCategory"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Category created successfully",
+                                        "status": 201
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+                    }
+                }
+            }
+        },
+        "/subsubcategory/create": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "SubSubCategory create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "object",
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateSubSubCategory"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Category created successfully",
+                                        "status": 201
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Kolin"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "Kolin123"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "90 880 19 01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "kolin@gmail.com"
+                    }
+                }
+            },
+            "UserRegister": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Kolin"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "1q2w2e"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "90 880 19 01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "kolin@gmail.com"
+                    }
+                }
+            },
+            "UserRegisterRes": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "User created successfully"
+                    },
+                    "access_token": {
+                        "type": "string",
+                        "example": "hbn1h2bhedb21hb3hnk1m23"
+                    }
+                }
+            },
+            "UserLogin": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "kolin@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "1q2w2e"
+                    }
+                }
+            },
+            "UserLoginRes": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Successfully"
+                    },
+                    "access_token": {
+                        "type": "string",
+                        "example": "hbn1h2bhedb21hb3hnk1m23"
+                    }
+                }
+            },
+            "CreateCategory": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Books"
+                    }
+                }
+            },
+            "CreateSubCategory": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Audio"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "5287c24a-b4df-43a6-93b9-17cbe389f0a0"
+                    }
+                }
+            },
+            "CreateSubSubCategory": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Booknomy"
+                    },
+                    "subCategory": {
+                        "type": "string",
+                        "example": "fb6d4dbc-6ae3-43e3-9ee1-a9e96479482d"
+                    }
+                }
+            }
+        }
+    }
+}
