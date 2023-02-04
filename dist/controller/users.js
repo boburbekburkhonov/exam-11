@@ -48,6 +48,9 @@ class UserController {
             where: { id: userId }
         })
             .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (!existingUser) {
+            return next(new errorHandler_1.ErrorHandler("User not found", 404));
+        }
         res.status(201).json({
             user: existingUser
         });
@@ -55,6 +58,15 @@ class UserController {
     async UPDATE(req, res, next) {
         const { name, password, phone, email } = req.body;
         const { userId } = req;
+        const foundUser = await ormconfig_1.dataSource
+            .getRepository(users_1.UserEntity)
+            .findOne({
+            where: { id: userId },
+        })
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (!foundUser) {
+            return next(new errorHandler_1.ErrorHandler("User not found", 404));
+        }
         const updateUser = await ormconfig_1.dataSource
             .createQueryBuilder()
             .update(users_1.UserEntity)

@@ -21,5 +21,5 @@ exports.validateSubCategory = joi_1.default.object().keys({
 });
 exports.validateSubSubCategory = joi_1.default.object().keys({
     title: joi_1.default.string().required(),
-    subCategory: joi_1.default.string().required()
+    subCategory: joi_1.default.string().required(),
 });

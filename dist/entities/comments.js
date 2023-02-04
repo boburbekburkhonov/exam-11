@@ -9,45 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubCategoryEntity = void 0;
+exports.CommentsEntity = void 0;
 const typeorm_1 = require("typeorm");
-const categories_1 = require("./categories");
-const sub_sub_category_1 = require("./sub.sub.category");
-let SubCategoryEntity = class SubCategoryEntity {
+const products_1 = require("./products");
+const users_1 = require("./users");
+let CommentsEntity = class CommentsEntity {
     id;
     title;
-    category;
-    subSubCategories;
+    product;
+    user;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid", {
-        name: "sub_category_id",
+        name: "comment_id",
     }),
     __metadata("design:type", String)
-], SubCategoryEntity.prototype, "id", void 0);
+], CommentsEntity.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: "sub_category_title",
+        name: "comment_title",
         type: "varchar",
         nullable: false,
     }),
     __metadata("design:type", String)
-], SubCategoryEntity.prototype, "title", void 0);
+], CommentsEntity.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => categories_1.CategoryEntity, (category) => category.subCategories),
-    __metadata("design:type", categories_1.CategoryEntity)
-], SubCategoryEntity.prototype, "category", void 0);
+    (0, typeorm_1.ManyToOne)(() => products_1.ProductEntity, (product) => product.comments),
+    __metadata("design:type", products_1.ProductEntity)
+], CommentsEntity.prototype, "product", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => sub_sub_category_1.SubSubCategoryEntity, (subSubCategory) => subSubCategory.subCategory, {
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "NO ACTION",
-    }),
-    __metadata("design:type", Array)
-], SubCategoryEntity.prototype, "subSubCategories", void 0);
-SubCategoryEntity = __decorate([
+    (0, typeorm_1.ManyToOne)(() => users_1.UserEntity, (user) => user.comments),
+    __metadata("design:type", users_1.UserEntity)
+], CommentsEntity.prototype, "user", void 0);
+CommentsEntity = __decorate([
     (0, typeorm_1.Entity)({
-        name: "sub_categories",
+        name: "comments",
     })
-], SubCategoryEntity);
-exports.SubCategoryEntity = SubCategoryEntity;
+], CommentsEntity);
+exports.CommentsEntity = CommentsEntity;

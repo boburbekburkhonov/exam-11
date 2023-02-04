@@ -1,44 +1,57 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, ManyToMany, JoinTable } from "typeorm"
+import { CommentsEntity } from "./comments"
+import { ProductEntity } from "./products"
 
 @Entity({
-  name: 'users'
+  name: "users",
 })
 export class UserEntity {
-  @PrimaryGeneratedColumn('uuid', {
-    name: 'user_id'
+  @PrimaryGeneratedColumn("uuid", {
+    name: "user_id",
   })
-  id: string;
+  id: string
 
   @Column({
-    name: 'user_name',
-    type: 'varchar',
-    nullable: false
+    name: "user_name",
+    type: "varchar",
+    nullable: false,
   })
-  name: string;
+  name: string
 
   @Column({
-    name: 'user_password',
-    type: 'varchar',
-    nullable: false
+    name: "user_password",
+    type: "varchar",
+    nullable: false,
   })
-  password: string;
+  password: string
 
   @Column({
-    name: 'user_phone',
-    type: 'varchar',
-    nullable: false
+    name: "user_phone",
+    type: "varchar",
+    nullable: false,
   })
-  phone: string;
+  phone: string
 
   @Column({
-    name: 'user_email',
-    type: 'varchar',
-    nullable: false
+    name: "user_email",
+    type: "varchar",
+    nullable: false,
   })
-  email: string;
+  email: string
 
   @CreateDateColumn({
-    type: 'timestamptz',
+    type: "timestamptz",
   })
-  created_at: string;
+  created_at: string
+
+  @OneToMany(() => CommentsEntity, (comment) => comment.user, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "NO ACTION",
+  })
+  comments: CommentsEntity[]
+
+  @ManyToMany(() => ProductEntity, (product) => product.users)
+  @JoinTable()
+  products: ProductEntity[]
 }

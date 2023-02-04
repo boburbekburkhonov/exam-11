@@ -12,14 +12,20 @@
         {
             "name": "Category",
             "description": "Everything about your Category"
+        },
+        {
+            "name": "Product",
+            "description": "Everything about your Product"
+        },
+        {
+            "name": "Comment",
+            "description": "Everything about your Product"
         }
     ],
     "paths": {
         "/user/page": {
             "get": {
-                "tags": [
-                    "User"
-                ],
+                "tags": ["User"],
                 "summary": "User Page",
                 "parameters": [
                     {
@@ -53,9 +59,7 @@
         },
         "/user/register": {
             "post": {
-                "tags": [
-                    "User"
-                ],
+                "tags": ["User"],
                 "summary": "Register User",
                 "requestBody": {
                     "content": {
@@ -89,9 +93,7 @@
         },
         "/user/login": {
             "post": {
-                "tags": [
-                    "User"
-                ],
+                "tags": ["User"],
                 "summary": "Login User",
                 "requestBody": {
                     "content": {
@@ -125,9 +127,7 @@
         },
         "/user/update": {
             "patch": {
-                "tags": [
-                    "User"
-                ],
+                "tags": ["User"],
                 "summary": "Update User",
                 "parameters": [
                     {
@@ -170,9 +170,7 @@
         },
         "/category/create": {
             "post": {
-                "tags": [
-                    "Category"
-                ],
+                "tags": ["Category"],
                 "summary": "Category create",
                 "requestBody": {
                     "content": {
@@ -207,9 +205,7 @@
         },
         "/subcategory/create": {
             "post": {
-                "tags": [
-                    "Category"
-                ],
+                "tags": ["Category"],
                 "summary": "SubCategory create",
                 "requestBody": {
                     "content": {
@@ -244,9 +240,7 @@
         },
         "/subsubcategory/create": {
             "post": {
-                "tags": [
-                    "Category"
-                ],
+                "tags": ["Category"],
                 "summary": "SubSubCategory create",
                 "requestBody": {
                     "content": {
@@ -267,6 +261,76 @@
                                     "type": "object",
                                     "example": {
                                         "message": "Category created successfully",
+                                        "status": 201
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+                    }
+                }
+            }
+        },
+        "/product/create": {
+            "post": {
+                "tags": ["Product"],
+                "summary": "Product create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "object",
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProduct"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Product created successfully",
+                                        "status": 201
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+                    }
+                }
+            }
+        },
+        "/comment/create": {
+            "post": {
+                "tags": ["Comment"],
+                "summary": "Comment create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "object",
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateComment"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Comment created successfully",
                                         "status": 201
                                     }
                                 }
@@ -399,6 +463,76 @@
                     "subCategory": {
                         "type": "string",
                         "example": "fb6d4dbc-6ae3-43e3-9ee1-a9e96479482d"
+                    }
+                }
+            },
+            "CreateProduct": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Booknomy"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "200 000"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "example": "Yaxshi kitob"
+                    },
+                    "lang": {
+                        "type": "string",
+                        "example": "Uzbekcha"
+                    },
+                    "made": {
+                        "type": "string",
+                        "example": "UZB"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Gucci"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "Blue"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "best"
+                    },
+                    "rate": {
+                        "type": "string",
+                        "example": "5"
+                    },
+                    "img": {
+                        "type": "string",
+                        "example": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFW4ejKBl9mIKXsVUOCBJf_m0K5KFF1wvt7qT5tkEW5g&s"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "0b46746f-5048-4c39-89dd-01e873744cd2"
+                    }
+                }
+            },
+            "CreateComment": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Menga yoqdi"
+                    },
+                    "product": {
+                        "type": "string",
+                        "example": "3359250d-7ccc-4ede-a5f3-fbff1758868d"
+                    },
+                    "user": {
+                        "type": "string",
+                        "example": "sasd-7ccc-4ede-a5f3-fbff1758868d"
                     }
                 }
             }

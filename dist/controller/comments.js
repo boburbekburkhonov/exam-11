@@ -1,24 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ormconfig_1 = require("../config/ormconfig");
-const sub_sub_category_1 = require("../entities/sub.sub.category");
+const comments_1 = require("../entities/comments");
 const errorHandler_1 = require("../error/errorHandler");
-class SubSubCategoryController {
+class CommentController {
     async POST(req, res, next) {
-        const { title, subCategory } = req.body;
-        const newCategory = await ormconfig_1.dataSource
+        const { title, product, user } = req.body;
+        const newComment = await ormconfig_1.dataSource
             .createQueryBuilder()
             .insert()
-            .into(sub_sub_category_1.SubSubCategoryEntity)
-            .values({ title, subCategory })
+            .into(comments_1.CommentsEntity)
+            .values({ title, product, user })
             .execute()
             .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
-        if (newCategory) {
+        if (newComment) {
             res.status(201).json({
-                message: "Category created successfully",
+                message: "Comment created successfully",
                 status: 201,
             });
         }
     }
 }
-exports.default = new SubSubCategoryController();
+exports.default = new CommentController();

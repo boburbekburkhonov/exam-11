@@ -19,5 +19,5 @@ export const validateSubCategory = Joi.object().keys({
 
 export const validateSubSubCategory = Joi.object().keys({
   title: Joi.string().required(),
-  subCategory: Joi.string().required()
+  subCategory: Joi.string().required(),
 })

@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubSubCategoryEntity = void 0;
 const typeorm_1 = require("typeorm");
+const products_1 = require("./products");
 const sub_category_1 = require("./sub.category");
 let SubSubCategoryEntity = class SubSubCategoryEntity {
     id;
     title;
     subCategory;
+    products;
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid', {
@@ -35,6 +37,14 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => sub_category_1.SubCategoryEntity, subCategory => subCategory.subSubCategories),
     __metadata("design:type", sub_category_1.SubCategoryEntity)
 ], SubSubCategoryEntity.prototype, "subCategory", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => products_1.ProductEntity, product => product.category, {
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "NO ACTION",
+    }),
+    __metadata("design:type", Array)
+], SubSubCategoryEntity.prototype, "products", void 0);
 SubSubCategoryEntity = __decorate([
     (0, typeorm_1.Entity)({
         name: 'sub_sub_categories'
