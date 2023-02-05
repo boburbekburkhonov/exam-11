@@ -13,7 +13,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const main = async () => {
     try {
-        await ormconfig_1.dataSource.initialize();
+        await ormconfig_1.dataSource.initialize().then(() => console.log("Connect"));
         app.use(routes_1.default);
         app.use(error_middleware_1.errorMiddleware);
         app.use('/api', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(docs_json_1.default));

@@ -20,6 +20,10 @@
         {
             "name": "Comment",
             "description": "Everything about your Product"
+        },
+        {
+            "name": "Orders",
+            "description": "Everything about your Orders"
         }
     ],
     "paths": {
@@ -46,6 +50,29 @@
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/users/products": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Users products",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserProducts"
                                     }
                                 }
                             }
@@ -156,8 +183,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string",
-                                    "example": "User updated successfully"
+                                    "$ref": "#/components/schemas/UserUpdate"
                                 }
                             }
                         }
@@ -273,6 +299,157 @@
                 }
             }
         },
+        "/products/status/recomended": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Products by status recomended",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/productsRecomended"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/products/status/best": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Products by status best",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/products"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Product by id",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/categories"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/products/users": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Products users",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/productsUsers"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/products/filter/?sort=new&page=1&limit=10": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Products filter",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/products"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/categories/products": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Product with categories",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/categories"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/subcategories/products": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Product with categories",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/subcategories"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
         "/product/create": {
             "post": {
                 "tags": ["Product"],
@@ -342,6 +519,41 @@
                     }
                 }
             }
+        },
+        "/orders/create": {
+            "post": {
+                "tags": ["Orders"],
+                "summary": "Order create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "type": "object",
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrder"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Order created successfully",
+                                        "status": 201
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "duplicate key value violates unique constraint \"PK_51d16e8ded688620a7d4c0c7c68\""
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -368,6 +580,47 @@
                     "email": {
                         "type": "string",
                         "example": "kolin@gmail.com"
+                    }
+                }
+            },
+            "UserProducts": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Kolin"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "Kolin123"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "90 880 19 01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "kolin@gmail.com"
+                    },
+                    "products": {
+                        "$ref": "#/components/schemas/productsUser"
+                    }
+                }
+            },
+            "UserUpdate": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "User updated successfully"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "200"
                     }
                 }
             },
@@ -519,6 +772,307 @@
                     }
                 }
             },
+            "categories": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Books"
+                    },
+                    "subCategories": {
+                        "$ref": "#/components/schemas/subcategories"
+                    }
+                }
+            },
+            "subcategories": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Dunyoviy kitoblar"
+                    },
+                    "subsubCategories": {
+                        "$ref": "#/components/schemas/subsubCategories"
+                    }
+                }
+            },
+            "subsubCategories": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Melodramma"
+                    },
+                    "products": {
+                        "$ref": "#/components/schemas/products"
+                    }
+                }
+            },
+            "products": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Orzuqib kutaman ertani"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "340 000"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Sidney Shallen"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "example": "Juda ham yaxshi kitob"
+                    },
+                    "lang": {
+                        "type": "string",
+                        "example": "uzbekcha"
+                    },
+                    "made": {
+                        "type": "string",
+                        "example": "made in china"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Gucci"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "green"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "best"
+                    },
+                    "rate": {
+                        "type": "string",
+                        "example": 6
+                    },
+                    "img": {
+                        "type": "string",
+                        "example": "https://images.uzum.uz/cconrob5a95unf11rp70/original.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-02-04T04:58:25.846Z"
+                    },
+                    "comments": {
+                        "$ref": "#/components/schemas/comments"
+                    }
+                }
+            },
+            "productsUsers": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Orzuqib kutaman ertani"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "340 000"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Sidney Shallen"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "example": "Juda ham yaxshi kitob"
+                    },
+                    "lang": {
+                        "type": "string",
+                        "example": "uzbekcha"
+                    },
+                    "made": {
+                        "type": "string",
+                        "example": "made in china"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Gucci"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "green"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "best"
+                    },
+                    "rate": {
+                        "type": "string",
+                        "example": 6
+                    },
+                    "img": {
+                        "type": "string",
+                        "example": "https://images.uzum.uz/cconrob5a95unf11rp70/original.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-02-04T04:58:25.846Z"
+                    },
+                    "users": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }
+            },
+            "productsUser": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Orzuqib kutaman ertani"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "340 000"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Sidney Shallen"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "example": "Juda ham yaxshi kitob"
+                    },
+                    "lang": {
+                        "type": "string",
+                        "example": "uzbekcha"
+                    },
+                    "made": {
+                        "type": "string",
+                        "example": "made in china"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Gucci"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "green"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "best"
+                    },
+                    "rate": {
+                        "type": "string",
+                        "example": 6
+                    },
+                    "img": {
+                        "type": "string",
+                        "example": "https://images.uzum.uz/cconrob5a95unf11rp70/original.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-02-04T04:58:25.846Z"
+                    }
+                }
+            },
+            "productsRecomended": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Orzuqib kutaman ertani"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "340 000"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Sidney Shallen"
+                    },
+                    "desc": {
+                        "type": "string",
+                        "example": "Juda ham yaxshi kitob"
+                    },
+                    "lang": {
+                        "type": "string",
+                        "example": "uzbekcha"
+                    },
+                    "made": {
+                        "type": "string",
+                        "example": "made in china"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Gucci"
+                    },
+                    "color": {
+                        "type": "string",
+                        "example": "green"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "recomended"
+                    },
+                    "rate": {
+                        "type": "string",
+                        "example": 6
+                    },
+                    "img": {
+                        "type": "string",
+                        "example": "https://images.uzum.uz/cconrob5a95unf11rp70/original.jpg"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-02-04T04:58:25.846Z"
+                    },
+                    "comments": {
+                        "$ref": "#/components/schemas/comments"
+                    }
+                }
+            },
+            "comments": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "3hj12bk3j1kb4gv3hb12"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Menga yoqdi"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }
+            },
             "CreateComment": {
                 "type": "object",
                 "properties": {
@@ -533,6 +1087,19 @@
                     "user": {
                         "type": "string",
                         "example": "sasd-7ccc-4ede-a5f3-fbff1758868d"
+                    }
+                }
+            },
+            "CreateOrder": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "example": "3359250d-7ccc-4ede-a5f3-fbff1758868d"
+                    },
+                    "productId": {
+                        "type": "string",
+                        "example": "3359250d-7ccc-4ede-a5f3-fbff1758868d"
                     }
                 }
             }

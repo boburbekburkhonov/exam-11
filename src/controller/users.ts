@@ -5,17 +5,18 @@ import { ErrorHandler } from "../error/errorHandler";
 import { sign } from "../utils/jwt";
 
 class UserController {
-  async REGISTER(req: Request, res: Response, next: NextFunction):Promise<void> {
+  async REGISTER(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { name, password, phone, email } = req.filtered
 
-    const existingUser: any = await dataSource.getRepository(UserEntity)
+    const existingUser: any = await dataSource
+      .getRepository(UserEntity)
       .findOne({
-        where: { name, password, phone, email }
+        where: { name, password, phone, email },
       })
-      .catch((err:ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
 
-    if(existingUser){
-      return next(new ErrorHandler('User already exists', 400))
+    if (existingUser) {
+      return next(new ErrorHandler("User already exists", 400))
     }
 
     const newUser: any = await dataSource
@@ -25,55 +26,65 @@ class UserController {
       .values({ name, password, phone, email })
       .execute()
 
-
     res.status(201).json({
-      message: 'User created successfully',
-      access_token: sign({ id: newUser.raw[0].user_id })
+      message: "User created successfully",
+      access_token: sign({ id: newUser.raw[0].user_id }),
     })
-
   }
 
-  async LOGIN(req: Request, res: Response, next: NextFunction):Promise<void> {
+  async LOGIN(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { email, password } = req.filtered
 
-    const existingUser: any = await dataSource.getRepository(UserEntity)
+    const existingUser: any = await dataSource
+      .getRepository(UserEntity)
       .findOne({
-        where: { email, password }
+        where: { email, password },
       })
-      .catch((err:ErrorHandler) => next(new ErrorHandler(err.message, 500)))
-
-    if(!existingUser){
-      return next(new ErrorHandler('User not found', 404))
-    }
-
-    res.status(201).json({
-      message: 'Successfully',
-      access_token: sign({ id: existingUser.id })
-    })
-  }
-
-  async GET_USER(req: Request, res: Response, next: NextFunction):Promise<void> {
-    const { userId } = req
-
-    const existingUser: any = await dataSource.getRepository(UserEntity)
-      .findOne({
-        where: { id: userId }
-      })
-    .catch((err:ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
 
     if (!existingUser) {
       return next(new ErrorHandler("User not found", 404))
     }
 
     res.status(201).json({
-      user: existingUser
+      message: "Successfully",
+      access_token: sign({ id: existingUser.id }),
     })
-
   }
 
-  async UPDATE(req: Request, res: Response, next: NextFunction):Promise<void> {
+  async GET_USER(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { userId } = req
+
+    const existingUser: any = await dataSource
+      .getRepository(UserEntity)
+      .findOne({
+        where: { id: userId },
+      })
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+
+    if (!existingUser) {
+      return next(new ErrorHandler("User not found", 404))
+    }
+
+    res.status(201).json({
+      user: existingUser,
+    })
+  }
+
+  async GET_USERS_PRODUCTS(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const existingUserProducts: any = await dataSource
+      .getRepository(UserEntity)
+      .createQueryBuilder('users')
+      .leftJoinAndSelect('users.products', 'products')
+      .getMany()
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+
+    res.status(200).json(existingUserProducts)
+  }
+
+  async UPDATE(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { name, password, phone, email } = req.body
-    const { userId } = req;
+    const { userId } = req
 
     const foundUser = await dataSource
       .getRepository(UserEntity)
@@ -89,20 +100,18 @@ class UserController {
     const updateUser: any = await dataSource
       .createQueryBuilder()
       .update(UserEntity)
-      .set({ name, password, phone, email})
-      .where('id = :id', { id: userId })
+      .set({ name, password, phone, email })
+      .where("id = :id", { id: userId })
       .execute()
-    .catch((err:ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
 
-    if(updateUser){
+    if (updateUser) {
       res.status(200).json({
         message: "User updated successfully",
-        status: 200
+        status: 200,
       })
     }
-
   }
-
 }
 
 export default new UserController()

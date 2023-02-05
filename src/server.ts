@@ -11,7 +11,7 @@ app.use(express.json())
 
 const main = async(): Promise<void> => {
   try{
-    await dataSource.initialize()
+    await dataSource.initialize().then(() => console.log("Connect"))
     app.use(routes)
     app.use(errorMiddleware)
 
