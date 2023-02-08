@@ -61,7 +61,7 @@ class ProductController {
   async GET_PRODUCTS_BY_STATUS_RECOMENDED(req: Request, res: Response, next: NextFunction): Promise<void> {
     const client = await redisConnect()
 
-    const allProductsByStatusRecomended = await client.get("products-status-recomended")
+    const allProductsByStatusRecomended: string | null = await client.get("products-status-recomended")
 
     if (!allProductsByStatusRecomended) {
       const existingProductsByStatus: any = await dataSource
@@ -83,7 +83,7 @@ class ProductController {
   async GET_PRODUCTS_BY_STATUS_BEST(req: Request, res: Response, next: NextFunction): Promise<void> {
     const client = await redisConnect()
 
-    const allProductsByStatusBest = await client.get("products-status-best")
+    const allProductsByStatusBest: string | null = await client.get("products-status-best")
 
     if (!allProductsByStatusBest) {
       const existingProductsByStatus: any = await dataSource
@@ -153,7 +153,7 @@ class ProductController {
     const { sort, page, limit } = req.query
 
     if (sort == "new") {
-      const allProductsFilter = await dataSource
+      const allProductsFilter: any = await dataSource
         .createQueryBuilder(ProductEntity, "product")
         .leftJoinAndSelect("product.comments", "comments")
         .leftJoinAndSelect("comments.user", "user")
@@ -166,7 +166,7 @@ class ProductController {
       res.json(allProductsFilter)
       return
     } else if (sort == "old") {
-      const allProductsFilter = await dataSource
+      const allProductsFilter: any = await dataSource
         .createQueryBuilder(ProductEntity, "product")
         .leftJoinAndSelect("product.comments", "comments")
         .leftJoinAndSelect("comments.user", "user")
@@ -180,7 +180,7 @@ class ProductController {
       return
     }
 
-    const allProductsFilter = await dataSource
+    const allProductsFilter: any = await dataSource
       .createQueryBuilder(ProductEntity, "product")
       .leftJoinAndSelect("product.comments", "comments")
       .leftJoinAndSelect("comments.user", "user")

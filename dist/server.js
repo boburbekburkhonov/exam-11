@@ -10,10 +10,10 @@ const error_middleware_1 = require("./middleware/error.middleware");
 const routes_1 = __importDefault(require("./routes"));
 const docs_json_1 = __importDefault(require("./docs.json"));
 const app = (0, express_1.default)();
-app.use(express_1.default.json());
 const main = async () => {
     try {
         await ormconfig_1.dataSource.initialize().then(() => console.log("Connect"));
+        app.use(express_1.default.json());
         app.use(routes_1.default);
         app.use(error_middleware_1.errorMiddleware);
         app.use('/api', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(docs_json_1.default));

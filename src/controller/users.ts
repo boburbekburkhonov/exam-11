@@ -86,7 +86,7 @@ class UserController {
     const { name, password, phone, email } = req.body
     const { userId } = req
 
-    const foundUser = await dataSource
+    const foundUser: any = await dataSource
       .getRepository(UserEntity)
       .findOne({
         where: { id: userId },

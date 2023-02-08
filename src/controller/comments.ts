@@ -7,7 +7,7 @@ class CommentController {
   async POST(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { title, product, user } = req.body
 
-    const newComment = await dataSource
+    const newComment: any = await dataSource
       .createQueryBuilder()
       .insert()
       .into(CommentsEntity)

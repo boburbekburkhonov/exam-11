@@ -7,7 +7,7 @@
   "tags": [
     {
       "name": "User",
-      "description": "Everything about your Books"
+      "description": "Everything about your User"
     },
     {
       "name": "Category",
@@ -19,7 +19,7 @@
     },
     {
       "name": "Comment",
-      "description": "Everything about your Product"
+      "description": "Everything about your Comment"
     },
     {
       "name": "Orders",
