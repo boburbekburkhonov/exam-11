@@ -33,4 +33,14 @@ exports.default = router
     .post("/product/create", product_1.default.POST)
     .post("/comment/create", comments_1.default.POST)
     .post("/orders/create", junction_table_1.default.POST)
-    .patch("/user/update", verifyToken_1.verifyToken, users_1.default.UPDATE);
+    .put("/category/update/:id", category_1.default.PUT)
+    .patch("/user/update", verifyToken_1.verifyToken, users_1.default.UPDATE)
+    .patch("/subcategory/update/:id", sub_category_1.default.PATCH)
+    .patch("/subsubcategory/update/:id", sub_sub_category_1.default.PATCH)
+    .patch("/product/update/:id", product_1.default.PATCH)
+    .patch("/comment/update/:id", comments_1.default.PATCH)
+    .delete("/category/delete/:id", category_1.default.DELETE)
+    .delete("/subcategory/delete/:id", sub_category_1.default.DELETE)
+    .delete("/subsubcategory/delete/:id", sub_sub_category_1.default.DELETE)
+    .delete("/product/delete/:id", product_1.default.DELETE)
+    .delete("/comment/delete/:id", comments_1.default.DELETE);

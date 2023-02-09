@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import { dataSource } from "../config/ormconfig";
-import { UserEntity } from "../entities/users";
-import { ErrorHandler } from "../error/errorHandler";
-import { sign } from "../utils/jwt";
+import { NextFunction, Request, Response } from "express"
+import { dataSource } from "../config/ormconfig"
+import { UserEntity } from "../entities/users"
+import { ErrorHandler } from "../error/errorHandler"
+import { sign } from "../utils/jwt"
 
 class UserController {
   async REGISTER(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -74,8 +74,8 @@ class UserController {
   async GET_USERS_PRODUCTS(req: Request, res: Response, next: NextFunction): Promise<void> {
     const existingUserProducts: any = await dataSource
       .getRepository(UserEntity)
-      .createQueryBuilder('users')
-      .leftJoinAndSelect('users.products', 'products')
+      .createQueryBuilder("users")
+      .leftJoinAndSelect("users.products", "products")
       .getMany()
       .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
 

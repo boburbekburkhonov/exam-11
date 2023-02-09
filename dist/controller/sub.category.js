@@ -16,7 +16,40 @@ class SubCategoryController {
         if (newCategory) {
             res.status(201).json({
                 message: "Category created successfully",
-                status: 201
+                status: 201,
+            });
+        }
+    }
+    async PATCH(req, res, next) {
+        const { title, category } = req.body;
+        const { id } = req.params;
+        const updatedeSubCategory = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .update(sub_category_1.SubCategoryEntity)
+            .set({ title, category })
+            .where("id = :id", { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (updatedeSubCategory) {
+            res.status(201).json({
+                message: "Category updated successfully",
+                status: 200,
+            });
+        }
+    }
+    async DELETE(req, res, next) {
+        const { id } = req.params;
+        const deleteCategory = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .delete()
+            .from(sub_category_1.SubCategoryEntity)
+            .where('id = :id', { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (deleteCategory) {
+            res.status(200).json({
+                message: "Category deleted successfully",
+                status: 200,
             });
         }
     }

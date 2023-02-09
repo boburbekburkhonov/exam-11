@@ -94,14 +94,14 @@ export class ProductEntity {
   })
   created_at: string
 
-  @ManyToOne(() => SubSubCategoryEntity, (categories) => categories.products)
-  category: SubSubCategoryEntity
-
-  @OneToMany(() => CommentsEntity, (comment) => comment.product, {
+  @ManyToOne(() => SubSubCategoryEntity, (categories) => categories.products, {
     cascade: true,
     onDelete: "CASCADE",
     onUpdate: "NO ACTION",
   })
+  category: SubSubCategoryEntity
+
+  @OneToMany(() => CommentsEntity, (comment) => comment.product)
   comments: CommentsEntity[]
 
   @ManyToMany(() => UserEntity, (user) => user.products, {

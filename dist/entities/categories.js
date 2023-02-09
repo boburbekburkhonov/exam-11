@@ -18,30 +18,26 @@ let CategoryEntity = class CategoryEntity {
     subCategories;
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid', {
-        name: 'category_id'
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid", {
+        name: "category_id",
     }),
     __metadata("design:type", String)
 ], CategoryEntity.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'category_title',
-        type: 'varchar',
-        nullable: false
+        name: "category_title",
+        type: "varchar",
+        nullable: false,
     }),
     __metadata("design:type", String)
 ], CategoryEntity.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => sub_category_1.SubCategoryEntity, subCategory => subCategory.category, {
-        cascade: true,
-        onDelete: 'CASCADE',
-        onUpdate: "NO ACTION"
-    }),
+    (0, typeorm_1.OneToMany)(() => sub_category_1.SubCategoryEntity, (subCategory) => subCategory.category),
     __metadata("design:type", Array)
 ], CategoryEntity.prototype, "subCategories", void 0);
 CategoryEntity = __decorate([
     (0, typeorm_1.Entity)({
-        name: 'categories'
+        name: "categories",
     })
 ], CategoryEntity);
 exports.CategoryEntity = CategoryEntity;

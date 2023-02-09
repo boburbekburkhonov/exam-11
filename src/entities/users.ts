@@ -44,11 +44,7 @@ export class UserEntity {
   })
   created_at: string
 
-  @OneToMany(() => CommentsEntity, (comment) => comment.user, {
-    cascade: true,
-    onDelete: "CASCADE",
-    onUpdate: "NO ACTION",
-  })
+  @OneToMany(() => CommentsEntity, (comment) => comment.user)
   comments: CommentsEntity[]
 
   @ManyToMany(() => ProductEntity, (product) => product.users)

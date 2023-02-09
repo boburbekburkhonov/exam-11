@@ -18,9 +18,17 @@ export class CommentsEntity {
   })
   title: string
 
-  @ManyToOne(() => ProductEntity, (product) => product.comments)
+  @ManyToOne(() => ProductEntity, (product) => product.comments, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "NO ACTION",
+  })
   product: ProductEntity
 
-  @ManyToOne(() => UserEntity, (user) => user.comments)
+  @ManyToOne(() => UserEntity, (user) => user.comments, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "NO ACTION",
+  })
   user: UserEntity
 }

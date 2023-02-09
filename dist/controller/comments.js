@@ -20,5 +20,38 @@ class CommentController {
             });
         }
     }
+    async PATCH(req, res, next) {
+        const { title, product, user } = req.body;
+        const { id } = req.params;
+        const updateComment = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .update(comments_1.CommentsEntity)
+            .set({ title, product, user })
+            .where("id = :id", { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (updateComment) {
+            res.status(200).json({
+                message: "Comment updated successfully",
+                status: 200,
+            });
+        }
+    }
+    async DELETE(req, res, next) {
+        const { id } = req.params;
+        const deleteComment = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .delete()
+            .from(comments_1.CommentsEntity)
+            .where("id = :id", { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (deleteComment) {
+            res.status(200).json({
+                message: "Comment deleted successfully",
+                status: 200,
+            });
+        }
+    }
 }
 exports.default = new CommentController();

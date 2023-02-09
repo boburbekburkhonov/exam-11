@@ -13,11 +13,11 @@ exports.validateRegister = joi_1.default.object().keys({
 });
 exports.validateLogin = joi_1.default.object().keys({
     email: joi_1.default.string().required(),
-    password: joi_1.default.string().required()
+    password: joi_1.default.string().required(),
 });
 exports.validateSubCategory = joi_1.default.object().keys({
     title: joi_1.default.string().required(),
-    category: joi_1.default.string().required()
+    category: joi_1.default.string().required(),
 });
 exports.validateSubSubCategory = joi_1.default.object().keys({
     title: joi_1.default.string().required(),

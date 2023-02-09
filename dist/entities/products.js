@@ -133,15 +133,15 @@ __decorate([
     __metadata("design:type", String)
 ], ProductEntity.prototype, "created_at", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => sub_sub_category_1.SubSubCategoryEntity, (categories) => categories.products),
-    __metadata("design:type", sub_sub_category_1.SubSubCategoryEntity)
-], ProductEntity.prototype, "category", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => comments_1.CommentsEntity, (comment) => comment.product, {
+    (0, typeorm_1.ManyToOne)(() => sub_sub_category_1.SubSubCategoryEntity, (categories) => categories.products, {
         cascade: true,
         onDelete: "CASCADE",
         onUpdate: "NO ACTION",
     }),
+    __metadata("design:type", sub_sub_category_1.SubSubCategoryEntity)
+], ProductEntity.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => comments_1.CommentsEntity, (comment) => comment.product),
     __metadata("design:type", Array)
 ], ProductEntity.prototype, "comments", void 0);
 __decorate([

@@ -299,6 +299,183 @@
         }
       }
     },
+    "/category/update/{id}": {
+      "put": {
+        "tags": ["Category"],
+        "summary": "Category update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategory"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Category updated successfully",
+                    "status": 201
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"100a1c71-712a-463e-bcd5-a720d3d5be2fs\""
+          }
+        }
+      }
+    },
+    "/subcategory/update/{id}": {
+      "patch": {
+        "tags": ["Category"],
+        "summary": "SubCategory update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/CreateSubCategory"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Category updated successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
+    "/subsubcategory/update/{id}": {
+      "patch": {
+        "tags": ["Category"],
+        "summary": "SubSubCategory update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubSubCategory"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Category updated successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
+    "/category/delete/{id}": {
+      "delete": {
+        "tags": ["Category"],
+        "summary": "Category delete",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Category deleted successfully",
+                    "status": 201
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"100a1c71-712a-463e-bcd5-a720d3d5be2fs\""
+          }
+        }
+      }
+    },
+    "/subcategory/delete/{id}": {
+      "delete": {
+        "tags": ["Category"],
+        "summary": "SubCategory delete",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Category deleted successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
+    "/subsubcategory/delete/{id}": {
+      "delete": {
+        "tags": ["Category"],
+        "summary": "SubSubCategory delete",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Category deleted successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
     "/products/status/recomended": {
       "get": {
         "tags": ["Product"],
@@ -485,6 +662,65 @@
         }
       }
     },
+    "/product/update/{id}": {
+      "patch": {
+        "tags": ["Product"],
+        "summary": "Product update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/CreateProduct"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Product updated successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
+    "/product/delete/{id}": {
+      "delete": {
+        "tags": ["Product"],
+        "summary": "Product delete",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Product deleted successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
     "/comment/create": {
       "post": {
         "tags": ["Comment"],
@@ -509,6 +745,65 @@
                   "example": {
                     "message": "Comment created successfully",
                     "status": 201
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
+    "/comment/update/{id}": {
+      "patch": {
+        "tags": ["Comment"],
+        "summary": "Comment update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "type": "object",
+              "schema": {
+                "$ref": "#/components/schemas/CreateComment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Comment updated successfully",
+                    "status": 200
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "invalid input syntax for type uuid: \"fbd4dbc-6ae3-43e3-9ee1-a9e96479482d\""
+          }
+        }
+      }
+    },
+    "/comment/delete/{id}": {
+      "delete": {
+        "tags": ["Comment"],
+        "summary": "Comment delete",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Comment deleted successfully",
+                    "status": 200
                   }
                 }
               }

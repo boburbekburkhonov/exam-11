@@ -149,6 +149,45 @@ class ProductController {
     }
   }
 
+  async PATCH(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { id } = req.params;
+    const { title, price, author, desc, lang, made, brand, color, status, rate, img, category } = req.body
+
+    const updateProduct: any = await dataSource
+      .createQueryBuilder()
+      .update(ProductEntity)
+      .set({ title, price, author, desc, lang, made, brand, color, status, rate, img, category })
+      .where('id = :id', { id })
+      .execute()
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+
+    if (updateProduct) {
+      res.status(200).json({
+        message: "Product updated successfully",
+        status: 200,
+      })
+    }
+  }
+
+  async DELETE(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { id } = req.params;
+
+    const deleteProduct: any = await dataSource
+      .createQueryBuilder()
+      .delete()
+      .from(ProductEntity)
+      .where('id = :id', { id })
+      .execute()
+      .catch((err: ErrorHandler) => next(new ErrorHandler(err.message, 500)))
+
+    if (deleteProduct) {
+      res.status(200).json({
+        message: "Product deleted successfully",
+        status: 200,
+      })
+    }
+  }
+
   async GET_PRODUCTS_FILTER(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { sort, page, limit } = req.query
 

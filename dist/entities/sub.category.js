@@ -34,15 +34,15 @@ __decorate([
     __metadata("design:type", String)
 ], SubCategoryEntity.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => categories_1.CategoryEntity, (category) => category.subCategories),
-    __metadata("design:type", categories_1.CategoryEntity)
-], SubCategoryEntity.prototype, "category", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => sub_sub_category_1.SubSubCategoryEntity, (subSubCategory) => subSubCategory.subCategory, {
+    (0, typeorm_1.ManyToOne)(() => categories_1.CategoryEntity, (category) => category.subCategories, {
         cascade: true,
         onDelete: "CASCADE",
         onUpdate: "NO ACTION",
     }),
+    __metadata("design:type", categories_1.CategoryEntity)
+], SubCategoryEntity.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => sub_sub_category_1.SubSubCategoryEntity, (subSubCategory) => subSubCategory.subCategory),
     __metadata("design:type", Array)
 ], SubCategoryEntity.prototype, "subSubCategories", void 0);
 SubCategoryEntity = __decorate([

@@ -20,34 +20,34 @@ let SubSubCategoryEntity = class SubSubCategoryEntity {
     products;
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid', {
-        name: 'sub_sub_category_id'
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid", {
+        name: "sub_sub_category_id",
     }),
     __metadata("design:type", String)
 ], SubSubCategoryEntity.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'sub_sub_category_title',
-        type: 'varchar',
-        nullable: false
+        name: "sub_sub_category_title",
+        type: "varchar",
+        nullable: false,
     }),
     __metadata("design:type", String)
 ], SubSubCategoryEntity.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => sub_category_1.SubCategoryEntity, subCategory => subCategory.subSubCategories),
-    __metadata("design:type", sub_category_1.SubCategoryEntity)
-], SubSubCategoryEntity.prototype, "subCategory", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => products_1.ProductEntity, product => product.category, {
+    (0, typeorm_1.ManyToOne)(() => sub_category_1.SubCategoryEntity, (subCategory) => subCategory.subSubCategories, {
         cascade: true,
         onDelete: "CASCADE",
         onUpdate: "NO ACTION",
     }),
+    __metadata("design:type", sub_category_1.SubCategoryEntity)
+], SubSubCategoryEntity.prototype, "subCategory", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => products_1.ProductEntity, (product) => product.category),
     __metadata("design:type", Array)
 ], SubSubCategoryEntity.prototype, "products", void 0);
 SubSubCategoryEntity = __decorate([
     (0, typeorm_1.Entity)({
-        name: 'sub_sub_categories'
+        name: "sub_sub_categories",
     })
 ], SubSubCategoryEntity);
 exports.SubSubCategoryEntity = SubSubCategoryEntity;

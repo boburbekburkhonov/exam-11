@@ -1,26 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
-import { SubCategoryEntity } from './sub.category';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
+import { SubCategoryEntity } from "./sub.category"
 
 @Entity({
-  name: 'categories'
+  name: "categories",
 })
 export class CategoryEntity {
-  @PrimaryGeneratedColumn('uuid', {
-    name: 'category_id'
+  @PrimaryGeneratedColumn("uuid", {
+    name: "category_id",
   })
-  id: string;
+  id: string
 
   @Column({
-    name: 'category_title',
-    type: 'varchar',
-    nullable: false
+    name: "category_title",
+    type: "varchar",
+    nullable: false,
   })
-  title: string;
+  title: string
 
-  @OneToMany(() => SubCategoryEntity, subCategory => subCategory.category, {
-    cascade: true,
-    onDelete: 'CASCADE',
-    onUpdate: "NO ACTION"
-  })
+  @OneToMany(() => SubCategoryEntity, (subCategory) => subCategory.category)
   subCategories: SubCategoryEntity[]
 }

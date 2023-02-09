@@ -61,8 +61,8 @@ class UserController {
     async GET_USERS_PRODUCTS(req, res, next) {
         const existingUserProducts = await ormconfig_1.dataSource
             .getRepository(users_1.UserEntity)
-            .createQueryBuilder('users')
-            .leftJoinAndSelect('users.products', 'products')
+            .createQueryBuilder("users")
+            .leftJoinAndSelect("users.products", "products")
             .getMany()
             .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
         res.status(200).json(existingUserProducts);

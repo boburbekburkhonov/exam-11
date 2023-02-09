@@ -20,5 +20,38 @@ class SubSubCategoryController {
             });
         }
     }
+    async PATCH(req, res, next) {
+        const { title, subCategory } = req.body;
+        const { id } = req.params;
+        const updatedeSubSubCategory = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .update(sub_sub_category_1.SubSubCategoryEntity)
+            .set({ title, subCategory })
+            .where("id = :id", { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (updatedeSubSubCategory) {
+            res.status(201).json({
+                message: "Category updated successfully",
+                status: 200,
+            });
+        }
+    }
+    async DELETE(req, res, next) {
+        const { id } = req.params;
+        const deleteCategory = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .delete()
+            .from(sub_sub_category_1.SubSubCategoryEntity)
+            .where('id = :id', { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (deleteCategory) {
+            res.status(200).json({
+                message: "Category deleted successfully",
+                status: 200,
+            });
+        }
+    }
 }
 exports.default = new SubSubCategoryController();

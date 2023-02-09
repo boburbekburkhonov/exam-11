@@ -68,11 +68,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "created_at", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => comments_1.CommentsEntity, (comment) => comment.user, {
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "NO ACTION",
-    }),
+    (0, typeorm_1.OneToMany)(() => comments_1.CommentsEntity, (comment) => comment.user),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "comments", void 0);
 __decorate([

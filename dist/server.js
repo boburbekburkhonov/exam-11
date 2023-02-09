@@ -16,7 +16,7 @@ const main = async () => {
         app.use(express_1.default.json());
         app.use(routes_1.default);
         app.use(error_middleware_1.errorMiddleware);
-        app.use('/api', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(docs_json_1.default));
+        app.use("/api", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(docs_json_1.default));
     }
     catch (err) {
         console.log(err);

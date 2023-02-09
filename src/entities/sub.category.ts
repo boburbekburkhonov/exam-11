@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm'
-import { CategoryEntity } from './categories';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm"
+import { CategoryEntity } from "./categories"
 import { SubSubCategoryEntity } from "./sub.sub.category"
 
 @Entity({
@@ -18,13 +18,13 @@ export class SubCategoryEntity {
   })
   title: string
 
-  @ManyToOne(() => CategoryEntity, (category) => category.subCategories)
-  category: CategoryEntity
-
-  @OneToMany(() => SubSubCategoryEntity, (subSubCategory) => subSubCategory.subCategory, {
+  @ManyToOne(() => CategoryEntity, (category) => category.subCategories, {
     cascade: true,
     onDelete: "CASCADE",
     onUpdate: "NO ACTION",
   })
+  category: CategoryEntity
+
+  @OneToMany(() => SubSubCategoryEntity, (subSubCategory) => subSubCategory.subCategory)
   subSubCategories: SubSubCategoryEntity[]
 }

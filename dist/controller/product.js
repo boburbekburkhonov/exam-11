@@ -121,6 +121,39 @@ class ProductController {
             });
         }
     }
+    async PATCH(req, res, next) {
+        const { id } = req.params;
+        const { title, price, author, desc, lang, made, brand, color, status, rate, img, category } = req.body;
+        const updateProduct = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .update(products_1.ProductEntity)
+            .set({ title, price, author, desc, lang, made, brand, color, status, rate, img, category })
+            .where('id = :id', { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (updateProduct) {
+            res.status(200).json({
+                message: "Product updated successfully",
+                status: 200,
+            });
+        }
+    }
+    async DELETE(req, res, next) {
+        const { id } = req.params;
+        const deleteProduct = await ormconfig_1.dataSource
+            .createQueryBuilder()
+            .delete()
+            .from(products_1.ProductEntity)
+            .where('id = :id', { id })
+            .execute()
+            .catch((err) => next(new errorHandler_1.ErrorHandler(err.message, 500)));
+        if (deleteProduct) {
+            res.status(200).json({
+                message: "Product deleted successfully",
+                status: 200,
+            });
+        }
+    }
     async GET_PRODUCTS_FILTER(req, res, next) {
         const { sort, page, limit } = req.query;
         if (sort == "new") {

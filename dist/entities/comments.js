@@ -34,11 +34,19 @@ __decorate([
     __metadata("design:type", String)
 ], CommentsEntity.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => products_1.ProductEntity, (product) => product.comments),
+    (0, typeorm_1.ManyToOne)(() => products_1.ProductEntity, (product) => product.comments, {
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "NO ACTION",
+    }),
     __metadata("design:type", products_1.ProductEntity)
 ], CommentsEntity.prototype, "product", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => users_1.UserEntity, (user) => user.comments),
+    (0, typeorm_1.ManyToOne)(() => users_1.UserEntity, (user) => user.comments, {
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "NO ACTION",
+    }),
     __metadata("design:type", users_1.UserEntity)
 ], CommentsEntity.prototype, "user", void 0);
 CommentsEntity = __decorate([
